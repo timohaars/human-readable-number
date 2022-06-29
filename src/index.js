@@ -9,14 +9,23 @@ module.exports = function toReadable (value) {
      return 'zero';
     }
      if (str.length === 1) {
-         result = ones[Number(str)];
+        result = ones[Number(str)];
      } else if ((str.length === 2) && (value<20)) {
         result = teens[Number(str[str.length-1])];
-     } else if ((str.length === 2) && (value >= 20) && (value%10 === 0)){
+     } else if ((str.length === 2) && (value >= 20) && (value%10 === 0)) {
         result = tens[Number(str[0])];
      } else if ((str.length === 2) && (value >= 20) && (value%10 !== 0)) {
         result = `${tens[Number(str[0])]} ${ones[Number(str[str.length-1])]}`;
+     } else if ((str.length === 3) && (value >= 100) && (value%100 === 0)) {
+        result = `${ones[Number(str[0])]} ${'hundred'}`;
+     } else if ((str.length === 3) && (value > 100) && (value%100 !== 0) && (Number(str[1]) === 0)) {
+        result = `${ones[Number(str[0])]} ${'hundred'} ${ones[Number(str[str.length -1])]}`;   
+     } else if((str.length === 3) && (value > 100 && Number(str.slice(-2)) < 20)) { 
+        result = `${ones[Number(str[0])]} ${'hundred'} ${teens[Number(str[str.length-1])]}`;
+     } else if((str.length === 3) && (value > 100 && Number(str.slice(-2)) >= 20) && Number(str.slice(-2))%10 === 0) {
+        result = `${ones[Number(str[0])]} ${'hundred'} ${tens[Number(str[1])]}`;
+     } else if((str.length === 3) && (value > 100 && Number(str.slice(-2)) > 20) && (Number(str.slice(-2))%10 !== 0)) {
+        result = `${ones[Number(str[0])]} ${'hundred'} ${tens[Number(str[1])]} ${ones[Number(str.slice(-1))]}`;
      }
-
      return result;
- } 
+  } 
