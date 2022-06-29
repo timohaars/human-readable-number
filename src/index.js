@@ -26,6 +26,10 @@ module.exports = function toReadable (value) {
         result = `${ones[Number(str[0])]} ${'hundred'} ${tens[Number(str[1])]}`;
      } else if((str.length === 3) && (value > 100 && Number(str.slice(-2)) > 20) && (Number(str.slice(-2))%10 !== 0)) {
         result = `${ones[Number(str[0])]} ${'hundred'} ${tens[Number(str[1])]} ${ones[Number(str.slice(-1))]}`;
+     } else if (str === '') {
+        result = 'Please, enter the number';
+     } else {
+        result = 'This works up to 1000';
      }
      return result;
-  } 
+  } ;
